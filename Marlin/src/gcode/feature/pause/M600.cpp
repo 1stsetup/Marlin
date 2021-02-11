@@ -46,6 +46,8 @@
   #include "../../../feature/runout.h"
 #endif
 
+PGMSTR(G28_XY_STR, "G28 X Y");
+
 /**
  * M600: Pause for filament change
  *
@@ -155,6 +157,14 @@ void GcodeSuite::M600() {
       resume_print(slow_load_length, fast_load_length, 0, beep_count DXC_PASS);
     #else
       wait_for_confirmation(true, beep_count DXC_PASS);
+
+      // Home XY before starting print because head might have moved during filament unload/load
+      #ifdef HOME_XY_AFTER_FILAMENT_CHANGE
+        process_subcommands_now_P(G28_XY_STR);
+      #elif defined(HOME_XY_AFTER_FILAMENT_CHANGE)
+        process_subcommands_now_P(G28_XY_STR);
+      #endif
+
       resume_print(slow_load_length, fast_load_length, ADVANCED_PAUSE_PURGE_LENGTH,
                    beep_count, (parser.seenval('R') ? parser.value_celsius() : 0) DXC_PASS);
     #endif
