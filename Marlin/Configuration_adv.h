@@ -2206,8 +2206,6 @@
 
   //#define FILAMENT_LOAD_UNLOAD_GCODES           // Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.
   //#define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
-
-  #define HOME_XY_AFTER_FILAMENT_CHANGE       // Home XY just before resuming print. In case head moved during change
 #endif
 
 // @section tmc
